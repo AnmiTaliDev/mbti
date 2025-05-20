@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест | MBTI Тест</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="theme.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>MBTI Тест</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="test.html" class="active">Тест</a></li>
+                <li><a href="xNFx.html">NF</a></li>
+                <li><a href="xNTx.html">NT</a></li>
+                <li><a href="xSFx.html">SF</a></li>
+                <li><a href="xSTx.html">ST</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="test-intro block">
+            <h2>Определите свой тип личности</h2>
+            <p>Выберите режим тестирования который вам подходит.</p>
+            
+            <div class="test-modes mt-md">
+                <button class="btn" id="express-test">Экспресс-тест (4 вопроса)</button>
+                <button class="btn" id="standard-test">Стандартный тест (12 вопросов)</button>
+                <button class="btn" id="detailed-test">Полный тест (24 вопроса)</button>
+            </div>
+        </section>
+
+        <section id="test-description" class="block hidden">
+            <div id="express-description" class="test-description hidden">
+                <h3>Экспресс-тест</h3>
+                <p>Четыре вопроса. Два варианта для каждого.</p>
+                <p>Этот тест дает общее представление о вашем типе. Его точность ограничена.</p>
+            </div>
+            <div id="standard-description" class="test-description hidden">
+                <h3>Стандартный тест</h3>
+                <p>Двенадцать вопросов. По три на каждую дихотомию.</p>
+                <p>Этот тест сбалансирован по времени и точности.</p>
+            </div>
+            <div id="detailed-description" class="test-description hidden">
+                <h3>Полный тест</h3>
+                <p>Двадцать четыре вопроса. По шесть на каждую дихотомию.</p>
+                <p>Этот тест дает наиболее точные результаты.</p>
+            </div>
+            <button id="start-test" class="btn mt-sm">Начать тестирование</button>
+        </section>
+
+        <section class="test-container block hidden" id="test-container">
+            <div class="test-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text">
+                    Вопрос <span id="current-question">1</span> из <span id="total-questions">4</span>
+                </div>
+            </div>
+
+            <form id="mbti-test">
+                <!-- Экстраверсия — Интроверсия (E/I) -->
+                <div class="question hidden" data-dimension="ei" id="q-ei-1">
+                    <h3>1. Ваша энергия</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-ei-1" value="E">
+                            <span class="option-text">Я восстанавливаюсь в компании других людей. Предпочитаю действовать, а не размышлять.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-ei-1" value="I">
+                            <span class="option-text">Я восстанавливаюсь наедине с собой. Предпочитаю размышлять, прежде чем действовать.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="ei" id="q-ei-2">
+                    <h3>Социальное взаимодействие</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-ei-2" value="E">
+                            <span class="option-text">Широкий круг знакомств. Легко завожу разговор с незнакомцами.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-ei-2" value="I">
+                            <span class="option-text">Узкий круг близких друзей. Предпочитаю глубокие беседы с теми, кого хорошо знаю.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="ei" id="q-ei-3">
+                    <h3>На мероприятиях</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-ei-3" value="E">
+                            <span class="option-text">Взаимодействую с многими людьми. Легко переключаюсь между группами. Иду домой с новыми контактами.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-ei-3" value="I">
+                            <span class="option-text">Провожу время с несколькими людьми. Предпочитаю глубокие разговоры. После мероприятий нужно время на восстановление.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="ei" id="q-ei-4">
+                    <h3>Когда вы думаете</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-ei-4" value="E">
+                            <span class="option-text">Предпочитаю обсуждать идеи вслух. Мысли формируются в процессе разговора.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-ei-4" value="I">
+                            <span class="option-text">Обдумываю идеи прежде чем поделиться. Нужно время и тишина для размышлений.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="ei" id="q-ei-5">
+                    <h3>В командных проектах</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-ei-5" value="E">
+                            <span class="option-text">Предпочитаю командные обсуждения. Часто высказываю идеи при всех.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-ei-5" value="I">
+                            <span class="option-text">Предпочитаю обдумать вопрос самостоятельно. Делюсь выводами после внутренней проработки.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="ei" id="q-ei-6">
+                    <h3>Время отдыха</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-ei-6" value="E">
+                            <span class="option-text">Встречи с друзьями, активный отдых, групповые мероприятия.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-ei-6" value="I">
+                            <span class="option-text">Спокойное времяпрепровождение дома, чтение, хобби в одиночестве.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Сенсорика — Интуиция (S/N) -->
+                <div class="question hidden" data-dimension="sn" id="q-sn-1">
+                    <h3>Ваше восприятие</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-sn-1" value="S">
+                            <span class="option-text">Я фокусируюсь на реальности и фактах. Доверяю конкретному опыту.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-sn-1" value="N">
+                            <span class="option-text">Я фокусируюсь на возможностях и шаблонах. Часто думаю о будущем.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="sn" id="q-sn-2">
+                    <h3>В обучении</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-sn-2" value="S">
+                            <span class="option-text">Осваиваю материал шаг за шагом. Ценю практические примеры. Предпочитаю конкретную информацию.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-sn-2" value="N">
+                            <span class="option-text">Стремлюсь увидеть общую концепцию. Ищу связи между темами. Легко обобщаю информацию.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="sn" id="q-sn-3">
+                    <h3>Описывая событие</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-sn-3" value="S">
+                            <span class="option-text">Сосредоточен на деталях и последовательности происходящего. Использую конкретные факты.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-sn-3" value="N">
+                            <span class="option-text">Фокусируюсь на впечатлениях и общей идее. Связываю происходящее с другими концепциями.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="sn" id="q-sn-4">
+                    <h3>Что вас интересует</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-sn-4" value="S">
+                            <span class="option-text">Практическое применение знаний. Реальные результаты.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-sn-4" value="N">
+                            <span class="option-text">Теории и концепции. Поиск новых возможностей.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="sn" id="q-sn-5">
+                    <h3>На новом месте</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-sn-5" value="S">
+                            <span class="option-text">Замечаю конкретные детали — цвета, запахи, местоположение предметов.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-sn-5" value="N">
+                            <span class="option-text">Улавливаю общую атмосферу и представляю, как место может измениться в будущем.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="sn" id="q-sn-6">
+                    <h3>Ваш подход к инструкциям</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-sn-6" value="S">
+                            <span class="option-text">Следую инструкциям шаг за шагом. Ценю проверенные методы.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-sn-6" value="N">
+                            <span class="option-text">Ищу принцип работы. Иногда пропускаю шаги, если понял общую идею.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Мышление — Чувство (T/F) -->
+                <div class="question hidden" data-dimension="tf" id="q-tf-1">
+                    <h3>Ваши решения</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-tf-1" value="T">
+                            <span class="option-text">Я принимаю решения на основе логики. Анализирую ситуацию объективно.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-tf-1" value="F">
+                            <span class="option-text">Я принимаю решения, учитывая ценности и влияние на людей. Важна гармония.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="tf" id="q-tf-2">
+                    <h3>В конфликтной ситуации</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-tf-2" value="T">
+                            <span class="option-text">Фокусируюсь на справедливости. Ищу объективное решение проблемы.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-tf-2" value="F">
+                            <span class="option-text">Стремлюсь сохранить гармонию. Учитываю чувства всех сторон.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="tf" id="q-tf-3">
+                    <h3>Критика</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-tf-3" value="T">
+                            <span class="option-text">Ценю прямую и честную обратную связь. Стремлюсь к объективности.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-tf-3" value="F">
+                            <span class="option-text">Предпочитаю деликатную критику. Важно как сказано, а не только что сказано.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="tf" id="q-tf-4">
+                    <h3>Помогая другим решить проблему</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-tf-4" value="T">
+                            <span class="option-text">Анализирую ситуацию и предлагаю логические решения. Фокусируюсь на эффективности.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-tf-4" value="F">
+                            <span class="option-text">Сопереживаю и предлагаю поддержку. Учитываю эмоциональные аспекты ситуации.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="tf" id="q-tf-5">
+                    <h3>При принятии важных решений</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-tf-5" value="T">
+                            <span class="option-text">Взвешиваю все за и против. Анализирую последствия логически.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-tf-5" value="F">
+                            <span class="option-text">Учитываю влияние решения на людей. Прислушиваюсь к своим ценностям.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="tf" id="q-tf-6">
+                    <h3>Что для вас важнее</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-tf-6" value="T">
+                            <span class="option-text">Честность и объективность даже если это вызывает дискомфорт.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-tf-6" value="F">
+                            <span class="option-text">Сохранение гармоничных отношений и учет индивидуальных обстоятельств.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Суждение — Восприятие (J/P) -->
+                <div class="question hidden" data-dimension="jp" id="q-jp-1">
+                    <h3>Ваш подход к жизни</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-jp-1" value="J">
+                            <span class="option-text">Я планирую заранее. Предпочитаю структуру, порядок и завершенность.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-jp-1" value="P">
+                            <span class="option-text">Я адаптируюсь к ситуации. Предпочитаю гибкость, спонтанность и открытые варианты.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="jp" id="q-jp-2">
+                    <h3>Ваше рабочее пространство</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-jp-2" value="J">
+                            <span class="option-text">Организованное и упорядоченное. Все имеет своё место.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-jp-2" value="P">
+                            <span class="option-text">Творческий беспорядок. Могу быстро найти нужные вещи в своей системе.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="jp" id="q-jp-3">
+                    <h3>В планировании</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-jp-3" value="J">
+                            <span class="option-text">Создаю подробные планы и следую им. Заранее решаю, что и когда делать.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-jp-3" value="P">
+                            <span class="option-text">Предпочитаю гибкий подход. Адаптируюсь к обстоятельствам.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="jp" id="q-jp-4">
+                    <h3>К дедлайнам</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-jp-4" value="J">
+                            <span class="option-text">Завершаю задачи заранее. Дискомфорт от работы в последний момент.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-jp-4" value="P">
+                            <span class="option-text">Часто работаю в последний момент. Давление дедлайна стимулирует творчество.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="jp" id="q-jp-5">
+                    <h3>Путешествия</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-jp-5" value="J">
+                            <span class="option-text">Планирую маршрут и резервирую места заранее. Следую расписанию.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-jp-5" value="P">
+                            <span class="option-text">Предпочитаю спонтанные открытия. Меняю планы в зависимости от настроения.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question hidden" data-dimension="jp" id="q-jp-6">
+                    <h3>Принятие решений</h3>
+                    <div class="options">
+                        <label>
+                            <input type="radio" name="q-jp-6" value="J">
+                            <span class="option-text">Стремлюсь принять окончательное решение как можно скорее. Закрытые вопросы приносят удовлетворение.</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="q-jp-6" value="P">
+                            <span class="option-text">Пересматриваю решения по мере поступления новой информации. Держу варианты открытыми.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="test-navigation">
+                    <button type="button" id="prev-question" class="btn-secondary">Назад</button>
+                    <button type="button" id="next-question" class="btn">Далее</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="result" class="block hidden">
+            <h2>Ваш тип: <span id="mbti-result"></span></h2>
+            <div id="result-description"></div>
+            
+            <div class="result-functions">
+                <h3>Когнитивные функции</h3>
+                <div id="cognitive-stack"></div>
+            </div>
+            
+            <div class="result-traits">
+                <div class="strengths">
+                    <h3>Сильные стороны</h3>
+                    <ul id="strengths-list"></ul>
+                </div>
+                
+                <div class="weaknesses">
+                    <h3>Области для развития</h3>
+                    <ul id="weaknesses-list"></ul>
+                </div>
+            </div>
+
+            <div class="result-scores mt-md">
+                <h3>Ваши показатели</h3>
+                <div class="dimension-scores">
+                    <div class="dimension-score">
+                        <div class="dimension-label">Экстраверсия (E) — Интроверсия (I)</div>
+                        <div class="score-bar">
+                            <div class="score-fill" id="ei-score-fill"></div>
+                        </div>
+                        <div class="score-labels">
+                            <span>E</span>
+                            <span>I</span>
+                        </div>
+                    </div>
+                    <div class="dimension-score">
+                        <div class="dimension-label">Сенсорика (S) — Интуиция (N)</div>
+                        <div class="score-bar">
+                            <div class="score-fill" id="sn-score-fill"></div>
+                        </div>
+                        <div class="score-labels">
+                            <span>S</span>
+                            <span>N</span>
+                        </div>
+                    </div>
+                    <div class="dimension-score">
+                        <div class="dimension-label">Мышление (T) — Чувство (F)</div>
+                        <div class="score-bar">
+                            <div class="score-fill" id="tf-score-fill"></div>
+                        </div>
+                        <div class="score-labels">
+                            <span>T</span>
+                            <span>F</span>
+                        </div>
+                    </div>
+                    <div class="dimension-score">
+                        <div class="dimension-label">Суждение (J) — Восприятие (P)</div>
+                        <div class="score-bar">
+                            <div class="score-fill" id="jp-score-fill"></div>
+                        </div>
+                        <div class="score-labels">
+                            <span>J</span>
+                            <span>P</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="result-actions mt-md">
+                <a id="type-link" href="#" class="btn">Узнать больше о типе</a>
+                <button id="reset-test" class="btn-secondary">Пройти тест заново</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 MBTI Тест</p>
+    </footer>
+
+    <script src="test.js"></script>
+</body>
+</html>
